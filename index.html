@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html manifest="card.appcache">
+<head>
+<title>Office Card</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<link href="bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="jumbotron">
+        <h1 id="text-content"></h1>
+        <div id="input-box" style="display:none">
+          <input id="text-input" placeholder="Type your text here and click go!" class="form-control" type="text"/>
+          <input id="text-button" class="btn btn-primary" type="button" value="Go!"/>
+          <p class="well">After click "Go!", open the page in Chrome and select "Add to Home screen" in the menu. </p>
+        </div>
+    </div>
+    <script>
+     function getParameterByName(name) {
+         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+             results = regex.exec(location.search);
+         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+     }
+     var text = getParameterByName('text');
+     var content = document.getElementById("text-content");
+     var inputBox = document.getElementById("input-box");
+     var input = document.getElementById("text-input");
+     var button = document.getElementById("text-button");
+     button.onclick = function(){
+         document.location = "/index.html?text=" + input.value;
+     }
+     if(text){
+        document.title = text;
+        content.textContent = text;
+     }
+     else{
+        content.style.display = 'none';
+        inputBox.style.display = "";
+     }
+    </script>
+</body>
+</html>
